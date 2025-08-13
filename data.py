@@ -13,9 +13,17 @@ def generate_horizontal_line():
     horizontal_line_img = blank_img
     return horizontal_line_img
 
+def generate_vertical_line():
+    blank_img = generate_blank()
+    random_single_col = np.random.randint(0, 8)
+    blank_img[:, random_single_col] = 1
+    vertical_line_img = blank_img
+    return vertical_line_img
+
 # Example Labels:
 # 0 = blank
 # 1 = horizontal_line
+# 2 = vertical_line
 # ...etc... (when you add more types, you can add more labels)
 
 #Create a function which returns a number of samples of every type, each flattened, along with labels for which type each image is.
@@ -37,6 +45,12 @@ def generate_image_dataset(samples_per_class=100):
         img = generate_horizontal_line()
         X.append(img.flatten())
         y.append(1)
+    
+    #vertical_line img (label 2)
+    for _ in range(samples_per_class):
+        img = generate_vertical_line()
+        X.append(img.flatten())
+        y.append(2)
 
     X = np.array(X)
     y = np.array(y)
@@ -54,3 +68,5 @@ print("Sample img 1:\n", X[0].reshape(8, 8), "\nSample img 2:\n", X[1].reshape(8
 print("Sample label 1:", y[0], "\nSample label 2:", y[1])
 print("Sample img 3:\n", X[2].reshape(8, 8), "\nSample img 4:\n", X[3].reshape(8, 8))
 print("Sample label 3:", y[2], "\nSample label 4:", y[3])
+print("Sample img 5 :\n", X[4].reshape(8, 8), "\nSample img 6:\n", X[5].reshape(8, 8))
+print("Sample label 5:", y[4], "\nSample label 6:", y[5])
